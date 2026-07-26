@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lyrics Animation</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+overflow:hidden;
+height:100vh;
+background:linear-gradient(135deg,#0f172a,#1e293b,#111827);
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+color:white;
+}
+
+#container{
+text-align:center;
+padding:20px;
+z-index:2;
+}
+
+#text{
+font-size:35px;
+font-weight:bold;
+min-height:90px;
+opacity:0;
+transform:translateY(20px);
+transition:0.8s;
+text-shadow:0 0 20px pink;
+}
+
+.show{
+opacity:1!important;
+transform:translateY(0)!important;
+}
+
+.cursor{
+display:inline-block;
+width:3px;
+height:35px;
+background:white;
+animation:blink .7s infinite;
+margin-left:3px;
+}
+
+@keyframes blink{
+50%{opacity:0;}
+}
+
+.heart{
+position:absolute;
+color:#ff4d6d;
+animation:fall linear forwards;
+pointer-events:none;
+user-select:none;
+}
+
+@keyframes fall{
+0%{
+transform:translateY(-50px) scale(0);
+opacity:1;
+}
+100%{
+transform:translateY(110vh) scale(1.4);
+opacity:0;
+}
+}
+
+.pop{
+position:absolute;
+font-size:20px;
+animation:pop .8s forwards;
+pointer-events:none;
+}
+
+@keyframes pop{
+0%{
+transform:scale(.2);
+opacity:1;
+}
+100%{
+transform:translateY(-80px) scale(2);
+opacity:0;
+}
+}
+
+button{
+padding:14px 40px;
+border:none;
+border-radius:50px;
+font-size:20px;
+cursor:pointer;
+background:#ff4d6d;
+color:white;
+margin-top:30px;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.08);
+box-shadow:0 0 25px hotpink;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+<div id="text"></div>
+
+<button onclick="start()">start!</button>
+
+</div>
+
+<script>
+
+const lyrics=[
+
+"secrets i have held in my heart",
+
+"are harder to hide than i thought",
+
+"maybe i just wanna be yours",
+
+"i wanna be yours",
+
+"i wanna be yours...",
+
+"ihavecrushonyou"
+
+];
+
+let index=0;
+
+const text=document.getElementById("text");
+const btn=document.querySelector("button");
+
+  function typeWriter(texts, i = 0) {
+    text.innerHTML = "";
+
+    let span = document.createElement("span");
+    text.appendChild(span);
+
+    let cursor = document.createElement("span");
+    cursor.className = "cursor";
+    text.appendChild(cursor);
+
+    let char = 0;
+
+    function typing() {
+        if (char < texts.length) {
+            span.innerHTML += texts.charAt(char);
+            char++;
+            setTimeout(typing, 70);
+        } else {
+            setTimeout(nextText, 1800);
+        }
+    }
+
+    text.classList.add("show");
+    typing();
+}
+
+function nextText() {
+
+    explodeHeart();
+
+    text.classList.remove("show");
+
+    setTimeout(() => {
+
+        index++;
+
+        if(index >= lyrics.length){
+            index = 0;
+        }
+
+        typeWriter(lyrics[index]);
+
+    },700);
+
+}
+
+function start(){
+
+    btn.style.display="none";
+
+    typeWriter(lyrics[index]);
+
+    setInterval(createHeart,250);
+
+}
+
+function createHeart(){
+
+    const heart=document.createElement("div");
+
+    heart.className="heart";
+
+    heart.innerHTML="❤";
+
+    heart.style.left=Math.random()*100+"vw";
+
+    heart.style.fontSize=(15+Math.random()*25)+"px";
+
+    heart.style.animationDuration=(3+Math.random()*4)+"s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },7000);
+
+}
+
+function explodeHeart(){
+
+    for(let i=0;i<12;i++){
+
+        const h=document.createElement("div");
+
+        h.className="pop";
+
+        h.innerHTML="❤";
+
+        h.style.left=(window.innerWidth/2+(Math.random()*160-80))+"px";
+
+        h.style.top=(window.innerHeight/2+(Math.random()*120-60))+"px";
+
+        document.body.appendChild(h);
+
+        setTimeout(()=>{
+            h.remove();
+        },800);
+
+    }
+
+                       }
+
+  // Background bintang
+
+for(let i=0;i<80;i++){
+
+const star=document.createElement("div");
+
+star.style.position="absolute";
+star.style.width="2px";
+star.style.height="2px";
+star.style.background="white";
+star.style.borderRadius="50%";
+star.style.left=Math.random()*100+"vw";
+star.style.top=Math.random()*100+"vh";
+star.style.opacity=Math.random();
+star.style.animation=`blink ${2+Math.random()*3}s infinite`;
+
+document.body.appendChild(star);
+
+}
+
+const style=document.createElement("style");
+
+style.innerHTML=`
+@keyframes blink{
+0%,100%{opacity:.2;}
+50%{opacity:1;}
+}
+`;
+
+document.head.appendChild(style);
+
+
+// Love muncul pas disentuh
+
+document.addEventListener("click",(e)=>{
+
+for(let i=0;i<8;i++){
+
+const h=document.createElement("div");
+
+h.className="pop";
+
+h.innerHTML="<3";
+
+h.style.left=(e.clientX+(Math.random()*80-40))+"px";
+h.style.top=(e.clientY+(Math.random()*80-40))+"px";
+
+document.body.appendChild(h);
+
+setTimeout(()=>{
+h.remove();
+},800);
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
