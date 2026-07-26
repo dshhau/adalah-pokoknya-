@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lyrics</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#000;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-family:'Baloo 2',cursive;
+}
+
+#lyrics{
+    color:white;
+    font-size:45px;
+    text-align:center;
+    text-shadow:
+        0 0 10px white,
+        0 0 20px white,
+        0 0 35px white;
+    animation:fade 3s ease;
+    position:absolute;
+    z-index:10;
+}
+
+@keyframes fade{
+    0%{
+        opacity:0;
+        transform:translateY(30px) scale(.8);
+    }
+    20%{
+        opacity:1;
+    }
+    80%{
+        opacity:1;
+    }
+    100%{
+        opacity:0;
+        transform:translateY(-30px) scale(1.1);
+    }
+}
+
+.star{
+    position:absolute;
+    width:3px;
+    height:3px;
+    background:white;
+    border-radius:50%;
+    box-shadow:0 0 15px white;
+    animation:move linear infinite;
+}
+
+@keyframes move{
+    from{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+    20%{
+        opacity:1;
+    }
+    to{
+        transform:translateY(-100vh);
+        opacity:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="lyrics"></div>
+
+<script>
+
+const text=[
+"anjg lu",
+"pukimak kau dek",
+"shibal",
+"brisik lu boti",
+"neraka tempat mu dek",
+"minimal immo"
+];
+
+let i=0;
+const lyric=document.getElementById("lyrics");
+
+function showText(){
+
+lyric.style.animation="none";
+void lyric.offsetWidth;
+
+lyric.innerHTML=text[i];
+lyric.style.animation="fade 3s ease";
+
+i++;
+if(i>=text.length)i=0;
+
+}
+
+showText();
+setInterval(showText,3000);
+
+for(let j=0;j<120;j++){
+
+const star=document.createElement("div");
+
+star.className="star";
+
+star.style.left=Math.random()*100+"vw";
+star.style.animationDuration=4+Math.random()*6+"s";
+star.style.animationDelay=Math.random()*6+"s";
+
+document.body.appendChild(star);
+
+}
+
+</script>
+
+</body>
+</html>
