@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Database Inventaris Tanaman</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#eef7ee;
+    padding:30px;
+}
+
+.header{
+    background:linear-gradient(135deg,#2e7d32,#66bb6a);
+    color:white;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.search input{
+    width:100%;
+    padding:13px;
+    border:none;
+    border-radius:10px;
+    outline:none;
+    font-size:16px;
+    margin-bottom:20px;
+    box-shadow:0 5px 12px rgba(0,0,0,.15);
+}
+
+.table-box{
+    overflow-x:auto;
+    background:white;
+    border-radius:15px;
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#2e7d32;
+    color:white;
+    padding:15px;
+}
+
+td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+    text-align:center;
+}
+
+tr:nth-child(even){
+    background:#f5fff5;
+}
+
+tr:hover{
+    background:#dff5df;
+}
+</style>
+
+</head>
+<body>
+
+<div class="header">
+<h1>🌿 DATABASE INVENTARIS TANAMAN 🌿</h1>
+<p>SMKN 64 Jakarta</p>
+</div>
+
+<div class="search">
+<input type="text" id="search" placeholder="🔍 Cari nama tanaman...">
+</div>
+
+<div class="table-box">
+<table id="table">
+
+<tr>
+<th>ID</th>
+<th>Nama Tanaman</th>
+<th>Bentuk Daun</th>
+<th>Jenis Batang</th>
+<th>Jenis Akar</th>
+<th>Kondisi Lingkungan</th>
+</tr>
+
+<tr>
+<td>T001</td>
+<td>Meranti Sepat Lurik</td>
+<td>Lonjong, bergaris putih/merah muda</td>
+<td>Batang semu</td>
+<td>Serabut</td>
+<td>Tempat teduh, tanah lembap</td>
+</tr>
+
+<tr>
+<td>T002</td>
+<td>Bakung Air Mancur</td>
+<td>Panjang dan sempit</td>
+<td>Batang semu</td>
+<td>Serabut</td>
+<td>Area terbuka, tanah lembap</td>
+</tr>
+
+<tr>
+<td>T003</td>
+<td>Sri Rejeki</td>
+<td>Lebar, bercorak hijau-putih</td>
+<td>Batang lunak</td>
+<td>Serabut</td>
+<td>Tempat teduh, tanah gembur</td>
+</tr>
+
+<tr>
+<td>T004</td>
+<td>Ketapang Kencana</td>
+<td>Kecil, lonjong</td>
+<td>Berkayu</td>
+<td>Tunggang</td>
+<td>Area terbuka, sinar matahari penuh</td>
+</tr>
+
+<tr>
+<td>T005</td>
+<td>Peace Lily</td>
+<td>Lonjong, hijau mengilap</td>
+<td>Batang semu</td>
+<td>Serabut</td>
+<td>Tempat teduh dan lembap</td>
+</tr>
+
+<tr>
+<td>T006</td>
+<td>Pohon Dolar</td>
+<td>Oval, tebal</td>
+<td>Batang semu berdaging</td>
+<td>Serabut</td>
+<td>Tempat teduh, tanah gembur</td>
+</tr>
+
+</table>
+</div>
+
+<script>
+const search=document.getElementById("search");
+
+search.addEventListener("keyup",function(){
+
+let filter=search.value.toLowerCase();
+let rows=document.querySelectorAll("#table tr");
+
+for(let i=1;i<rows.length;i++){
+
+let nama=rows[i].cells[1].innerText.toLowerCase();
+
+rows[i].style.display=nama.includes(filter)?"":"none";
+
+}
+
+});
+</script>
+
+</body>
+</html>
